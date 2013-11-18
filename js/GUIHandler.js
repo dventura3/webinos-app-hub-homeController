@@ -814,9 +814,6 @@
 
 		idbox = dd_box_name+"_"+num_boxes;
 
-		//AT THE MOMENT -> go to function 'onDeviceOrientationEvent'
-		idDeviceOrientation = device.id;
-
         var formatted_serviceAddress = getFormattedAddress(device.serviceAddress, 16);
 		var html = "";
 		html += "<div class='window' id='"+idbox+"' >";
@@ -845,7 +842,7 @@
         jsPlumb.draggable(divsWithWindowClass);
 
         //add eventListener
-		device.addEventListener("deviceorientation", onDeviceOrientationEvent, false);
+        device.addEventListener("deviceorientation", function(e){ onDeviceOrientationEvent(device.id, e)}, false);
 		devsOrientationActive[device.id] = (devsOrientationActive[device.id] + 1);
 
         //to remove box
@@ -862,8 +859,7 @@
     	//remove listener
         var deviceID = boxID.split("_")[1];
 
-        //NOT CORRECTLY --> ????
-        devsOrientation[deviceID].removeEventListener("deviceorientation", onDeviceOrientationEvent, false);
+        devsOrientation[deviceID].removeEventListener("deviceorientation", function(e){ onDeviceOrientationEvent(deviceID, e)}, false);
         devsOrientationActive[device.id] = (devsOrientationActive[device.id] - 1);
 
         //remove connections

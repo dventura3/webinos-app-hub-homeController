@@ -378,7 +378,7 @@ function clearAll_for_rules(){
 	for(i in devsOrientationActive){
 		numListenerToRemove = devsOrientationActive[i];
 		for(var x=0; x<numListenerToRemove; x++)
-			devsOrientation[i].removeEventListener('sensor', onDeviceOrientationEvent, false);
+			devsOrientation[i].removeEventListener("deviceorientation", function(e){ onDeviceOrientationEvent(i, e)}, false);
         devsOrientationActive[i] = 0;
 	}
 
